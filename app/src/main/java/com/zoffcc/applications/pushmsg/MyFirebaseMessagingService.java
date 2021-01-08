@@ -38,33 +38,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 
     private static final String TAG = "MyFirebaseMsgService";
 
-    /**
-     * Called when message is received.
-     *
-     * @param remoteMessage Object representing the message received from Firebase Cloud Messaging.
-     */
-    // [START receive_message]
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage)
     {
-        // [START_EXCLUDE]
-        // There are two types of messages data messages and notification messages. Data messages
-        // are handled
-        // here in onMessageReceived whether the app is in the foreground or background. Data
-        // messages are the type
-        // traditionally used with GCM. Notification messages are only received here in
-        // onMessageReceived when the app
-        // is in the foreground. When the app is in the background an automatically generated
-        // notification is displayed.
-        // When the user taps on the notification they are returned to the app. Messages
-        // containing both notification
-        // and data payloads are treated as notification messages. The Firebase console always
-        // sends notification
-        // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
-        // [END_EXCLUDE]
-
-        // TODO(developer): Handle FCM messages here.
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
@@ -85,19 +61,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 
         }
 
-        // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null)
+        //if (remoteMessage.getNotification() != null)
+        //{
+        Log.d(TAG, "Message Notification Body: " + remoteMessage.getData());
+        try
         {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            sendNotification(remoteMessage.getData().toString());
         }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        //}
 
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
     }
-    // [END receive_message]
-
-
-    // [START on_new_token]
 
     /**
      * There are two scenarios when onNewToken is called:
@@ -112,23 +89,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
     public void onNewToken(String token)
     {
         Log.d(TAG, "Refreshed token: " + token);
-
-        // If you want to send messages to this application instance or
-        // manage this apps subscriptions on the server side, send the
-        // FCM registration token to your app server.
         sendRegistrationToServer(token);
     }
-    // [END on_new_token]
 
     /**
      * Schedule async work using WorkManager.
      */
     private void scheduleJob()
     {
-        // [START dispatch_job]
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(MyWorker.class).build();
         WorkManager.getInstance().beginWith(work).enqueue();
-        // [END dispatch_job]
     }
 
     /**
