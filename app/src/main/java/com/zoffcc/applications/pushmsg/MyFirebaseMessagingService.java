@@ -19,6 +19,7 @@ package com.zoffcc.applications.pushmsg;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
@@ -41,14 +42,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage)
     {
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        // Log.d(TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0)
         {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-
-            if (/* Check if data needs to be processed by long running job */ true)
+            if (true)
             {
                 // For long-running tasks (10 seconds or more) use WorkManager.
                 scheduleJob();
@@ -58,22 +57,34 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
                 // Handle message within 10 seconds
                 handleNow();
             }
-
         }
 
-        //if (remoteMessage.getNotification() != null)
-        //{
-        Log.d(TAG, "Message Notification Body: " + remoteMessage.getData());
         try
         {
             sendNotification(remoteMessage.getData().toString());
+            // Log.d(TAG, "Data: " + remoteMessage.getData().toString());
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-        //}
 
+        try
+        {
+            // wake up trifa here ------------------
+            final Intent intent = new Intent();
+            intent.setAction("com.zoffcc.applications.trifa.EXTERN_RECV");
+            intent.putExtra("task", "wakeup");
+            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            intent.setComponent(new ComponentName("com.zoffcc.applications.trifa",
+                                                  "com.zoffcc.applications.trifa.MyExternReceiver"));
+            sendBroadcast(intent);
+            // wake up trifa here ------------------
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -88,7 +99,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
     @Override
     public void onNewToken(String token)
     {
-        Log.d(TAG, "Refreshed token: " + token);
+        // Log.d(TAG, "Refreshed token: " + token);
         sendRegistrationToServer(token);
     }
 
@@ -106,7 +117,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
      */
     private void handleNow()
     {
-        Log.d(TAG, "Short lived task is done.");
     }
 
     /**
@@ -150,6 +160,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
             notificationManager.createNotificationChannel(channel);
         }
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify(0, notificationBuilder.build());
     }
 }

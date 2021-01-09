@@ -23,7 +23,6 @@ public class MyWorker extends Worker
     public Result doWork()
     {
         Log.d(TAG, "Performing long running task in scheduled job");
-        // TODO: send incoming ping message to trifa (trifa will wake up and connect to the Tox Network)
         return Result.success();
     }
 }

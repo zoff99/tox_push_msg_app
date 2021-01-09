@@ -68,36 +68,8 @@ public class MainActivity extends AppCompatActivity
             for (String key : getIntent().getExtras().keySet())
             {
                 Object value = getIntent().getExtras().get(key);
-                Log.d(TAG, "Key: " + key + " Value: " + value);
             }
         }
-        // [END handle_data_extras]
-
-        binding.subscribeButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Log.d(TAG, "Subscribing to weather topic");
-                // [START subscribe_topics]
-                FirebaseMessaging.getInstance().subscribeToTopic("weather").addOnCompleteListener(
-                        new OnCompleteListener<Void>()
-                        {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task)
-                            {
-                                String msg = getString(R.string.msg_subscribed);
-                                if (!task.isSuccessful())
-                                {
-                                    msg = getString(R.string.msg_subscribe_failed);
-                                }
-                                Log.d(TAG, msg);
-                                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                // [END subscribe_topics]
-            }
-        });
 
         binding.logTokenButton.setOnClickListener(new View.OnClickListener()
         {
@@ -105,7 +77,6 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 // Get token
-                // [START log_reg_token]
                 FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>()
                 {
                     @Override
@@ -122,11 +93,9 @@ public class MainActivity extends AppCompatActivity
 
                         // Log and toast
                         String msg = getString(R.string.msg_token_fmt, token);
-                        Log.d(TAG, msg);
                         Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
-                // [END log_reg_token]
             }
         });
     }
