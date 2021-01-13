@@ -130,6 +130,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
     private void sendRegistrationToServer(String token)
     {
         // TODO: send ID to trifa (trifa will forward it to ToxProxy)
+        // 1. Trifa Aufwecken (analog zu nachricht empfang)
+        // duplizieren und token gleichzeitig zum aufwecken übermitteln
+        try
+        {
+            // wake up trifa here ------------------
+            final Intent intent = new Intent();
+            intent.setAction("com.zoffcc.applications.trifa.TOKEN_CHANGED");
+            intent.putExtra("token", token);
+            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            intent.setComponent(new ComponentName("com.zoffcc.applications.trifa",
+                    "com.zoffcc.applications.trifa.MyTokenReceiver"));
+            sendBroadcast(intent);
+            // wake up trifa here ------------------
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
