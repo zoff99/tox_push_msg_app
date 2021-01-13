@@ -18,6 +18,8 @@ package com.zoffcc.applications.pushmsg;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -91,9 +93,30 @@ public class MainActivity extends AppCompatActivity
                         // Get new FCM registration token
                         String token = task.getResult();
 
+                        // TODO: send ID to trifa (trifa will forward it to ToxProxy)
+                        // 1. Trifa Aufwecken (analog zu nachricht empfang)
+                        // duplizieren und token gleichzeitig zum aufwecken übermitteln
+                        try
+                        {
+                            // wake up trifa here ------------------
+                            final Intent intent = new Intent();
+                            intent.setAction("com.zoffcc.applications.trifa.TOKEN_CHANGED");
+                            intent.putExtra("token", token);
+                            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            intent.setComponent(new ComponentName("com.zoffcc.applications.trifa",
+                                    "com.zoffcc.applications.trifa.MyTokenReceiver"));
+                            sendBroadcast(intent);
+                            // wake up trifa here ------------------
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+
                         // Log and toast
                         String msg = getString(R.string.msg_token_fmt, token);
                         Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        Log.i(TAG, msg);
                     }
                 });
             }
