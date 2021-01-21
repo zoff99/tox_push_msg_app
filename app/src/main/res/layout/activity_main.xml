@@ -7,14 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.google.firebase.quickstart.pushmsg.java.MainActivity">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/firebase_lockup_400" />
+    tools:context="com.zoffcc.applications.pushmsg.MainActivity">
 
     <TextView
         android:id="@+id/informationTextView"
@@ -25,18 +18,11 @@
         android:text="@string/quickstart_message" />
 
     <Button
-        android:id="@+id/subscribeButton"
-        android:layout_width="@dimen/standard_field_width"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="@string/subscribe_to_weather" />
-
-    <Button
         android:id="@+id/logTokenButton"
         android:layout_width="@dimen/standard_field_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/log_token" />
+        android:text="@string/log_token"
+        android:textAllCaps="false" />
 
 </LinearLayout>
