@@ -18,42 +18,57 @@ package com.zoffcc.applications.pushmsg;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.RadioGroup;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.zoffcc.applications.pushmsg.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
+
+public class MainActivity extends AppCompatActivity
+{
 
     private static final String TAG = "MainActivity";
     private ActivityMainBinding binding = null;
 
-    // the onCreate method is rerun on startup, therefore need to skip applying the default theme to prevent it to go crazy. ugly. ugh.
-    private boolean applyThemeCheckChange = false;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         Log.i(TAG, "MainActivity.onCreate start");
-        applyThemeCheckChange = false;
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        String PREF_night_mode = settings.getString("theme", "0");
+        int night_mode = MODE_NIGHT_FOLLOW_SYSTEM;
+        if (PREF_night_mode.equals("1"))
+        {
+            night_mode = MODE_NIGHT_YES;
+        }
+        else if (PREF_night_mode.equals("2"))
+        {
+            night_mode = MODE_NIGHT_NO;
+        }
+
+        AppCompatDelegate.setDefaultNightMode(night_mode);
         super.onCreate(savedInstanceState);
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
             // Create channel to show notifications.
             String channelId = getString(R.string.default_notification_channel_id);
             String channelName = getString(R.string.default_notification_channel_name);
@@ -62,48 +77,30 @@ public class MainActivity extends AppCompatActivity {
                     new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW));
         }
 
-
-        // If a notification message is tapped, any data accompanying the notification
-        // message is available in the intent extras. In this sample the launcher
-        // intent is fired when the notification is tapped, so any accompanying data would
-        // be handled here. If you want a different intent fired, set the click_action
-        // field of the notification message to the desired intent. The launcher intent
-        // is used when no click_action is specified.
-        //
-        // Handle possible data accompanying notification message.
-        // [START handle_data_extras]
-        // if (getIntent().getExtras() != null) {
-        //     for (String key : getIntent().getExtras().keySet()) {
-        //         Object value = getIntent().getExtras().get(key);
-        //     }
-        // }
-
-        Log.i(TAG, "MainActivity.onCreate themeGroup setting default");
-        binding.themeGroup.check(R.id.themeSystem);
-
-        binding.themeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        binding.startSetting.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.i(TAG, "themeGroup.onCheckedChanged: " + checkedId);
-                if(applyThemeCheckChange) {
-                    if(checkedId == R.id.themeSystem)
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                    else if(checkedId == R.id.themeDark)
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    else if(checkedId == R.id.themeLight)
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
+            public void onClick(View v)
+            {
+                Intent myIntent = new Intent(v.getContext(), SettingsActivity.class);
+                startActivity(myIntent);
             }
         });
 
-        binding.logTokenButton.setOnClickListener(new View.OnClickListener() {
+
+        binding.logTokenButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 // Get token
-                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>()
+                {
                     @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
+                    public void onComplete(@NonNull Task<String> task)
+                    {
+                        if (!task.isSuccessful())
+                        {
                             Log.w(TAG, "Fetching FCM registration token failed", task.getException());
                             return;
                         }
@@ -113,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-        applyThemeCheckChange = true;
+
         Log.i(TAG, "MainActivity.onCreate end");
     }
 }

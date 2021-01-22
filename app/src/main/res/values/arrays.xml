@@ -1,0 +1,13 @@
+<resources>
+    <string-array name="theme_entries">
+        <item>auto</item>
+        <item>dark</item>
+        <item>light</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

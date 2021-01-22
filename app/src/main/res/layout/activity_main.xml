@@ -34,28 +34,13 @@
         android:text="@string/log_token"
         android:textAllCaps="false" />
 
-    <RadioGroup
-        android:id="@+id/themeGroup"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <RadioButton
-            android:id="@+id/themeSystem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Use System Theme" />
-
-        <RadioButton
-            android:id="@+id/themeDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Force Dark Theme" />
-
-        <RadioButton
-            android:id="@+id/themeLight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Force Light Theme" />
-    </RadioGroup>
+    <Button
+        android:id="@+id/startSetting"
+        android:layout_width="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@color/blue_grey_700"
+        android:textAllCaps="false" />
 
 </LinearLayout>
