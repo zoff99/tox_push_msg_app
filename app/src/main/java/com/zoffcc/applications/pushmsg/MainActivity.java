@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity
                             intent.putExtra("token", token);
                             intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             intent.setComponent(new ComponentName("com.zoffcc.applications.trifa",
-                                    "com.zoffcc.applications.trifa.MyTokenReceiver"));
+                                                                  "com.zoffcc.applications.trifa.MyTokenReceiver"));
                             sendBroadcast(intent);
                             // wake up trifa here ------------------
                         }
@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity
                         // Log and toast
                         String msg = getString(R.string.msg_token_fmt, token);
                         Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                        Log.i(TAG, msg);
                     }
                 });
             }
