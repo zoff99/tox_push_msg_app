@@ -10,11 +10,20 @@
     tools:context="com.zoffcc.applications.pushmsg.MainActivity">
 
     <TextView
-        android:id="@+id/informationTextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
+        android:paddingBottom="20sp"
+        android:text="@string/app_name"
+        android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/informationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15sp"
         android:text="@string/quickstart_message" />
 
     <Button
@@ -24,5 +33,29 @@
         android:layout_gravity="center_horizontal"
         android:text="@string/log_token"
         android:textAllCaps="false" />
+
+    <RadioGroup
+        android:id="@+id/themeGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RadioButton
+            android:id="@+id/themeSystem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Use System Theme" />
+
+        <RadioButton
+            android:id="@+id/themeDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Force Dark Theme" />
+
+        <RadioButton
+            android:id="@+id/themeLight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Force Light Theme" />
+    </RadioGroup>
 
 </LinearLayout>
