@@ -25,64 +25,24 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.util.Log;
+
+import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import androidx.core.app.NotificationCompat;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-
-public class MyFirebaseMessagingService extends FirebaseMessagingService
-{
+public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage)
-    {
-        // Log.d(TAG, "From: " + remoteMessage.getFrom());
+    public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0)
-        {
-            if (true)
-            {
-                // For long-running tasks (10 seconds or more) use WorkManager.
-                scheduleJob();
-            }
-            else
-            {
-                // Handle message within 10 seconds
-                handleNow();
-            }
-        }
-
-        try
-        {
+        IntentSender.sendWakeupIntent(this);
+        try {
             sendNotification(remoteMessage.getData().toString());
             // Log.d(TAG, "Data: " + remoteMessage.getData().toString());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        try
-        {
-            // wake up trifa here ------------------
-            final Intent intent = new Intent();
-            intent.setAction("com.zoffcc.applications.trifa.EXTERN_RECV");
-            intent.putExtra("task", "wakeup");
-            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-            intent.setComponent(new ComponentName("com.zoffcc.applications.trifa",
-                                                  "com.zoffcc.applications.trifa.MyExternReceiver"));
-            sendBroadcast(intent);
-            // wake up trifa here ------------------
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -97,57 +57,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
      * C) User clears app data
      */
     @Override
-    public void onNewToken(String token)
-    {
-        // Log.d(TAG, "Refreshed token: " + token);
-        sendRegistrationToServer(token);
-    }
-
-    /**
-     * Schedule async work using WorkManager.
-     */
-    private void scheduleJob()
-    {
-        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(MyWorker.class).build();
-        WorkManager.getInstance().beginWith(work).enqueue();
-    }
-
-    /**
-     * Handle time allotted to BroadcastReceivers.
-     */
-    private void handleNow()
-    {
-    }
-
-    /**
-     * Persist token to third-party servers.
-     * <p>
-     * Modify this method to associate the user's FCM registration token with any
-     * server-side account maintained by your application.
-     *
-     * @param token The new token.
-     */
-    private void sendRegistrationToServer(String token)
-    {
-        // TODO: send ID to trifa (trifa will forward it to ToxProxy)
-        // 1. Trifa Aufwecken (analog zu nachricht empfang)
-        // duplizieren und token gleichzeitig zum aufwecken übermitteln
-        try
-        {
-            // wake up trifa here ------------------
-            final Intent intent = new Intent();
-            intent.setAction("com.zoffcc.applications.trifa.TOKEN_CHANGED");
-            intent.putExtra("token", token);
-            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-            intent.setComponent(new ComponentName("com.zoffcc.applications.trifa",
-                    "com.zoffcc.applications.trifa.MyTokenReceiver"));
-            sendBroadcast(intent);
-            // wake up trifa here ------------------
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+    public void onNewToken(String token) {
+        IntentSender.sendTokenIntent(token, this);
     }
 
     /**
@@ -155,12 +66,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
      *
      * @param messageBody FCM message body received.
      */
-    private void sendNotification(String messageBody)
-    {
+    private void sendNotification(String messageBody) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                                                                PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent.FLAG_ONE_SHOT);
 
         String channelId = getString(R.string.default_notification_channel_id);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -171,10 +81,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         // Since android Oreo notification channel is needed.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(channelId, "Channel human readable title",
-                                                                  NotificationManager.IMPORTANCE_DEFAULT);
+                    NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);
         }
 
