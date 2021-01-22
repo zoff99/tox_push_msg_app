@@ -25,10 +25,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,11 +40,17 @@ import com.zoffcc.applications.pushmsg.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    private ActivityMainBinding binding = null;
+
+    // the onCreate method is rerun on startup, therefore need to skip applying the default theme to prevent it to go crazy. ugly. ugh.
+    private boolean applyThemeCheckChange = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "MainActivity.onCreate start");
+        applyThemeCheckChange = false;
         super.onCreate(savedInstanceState);
-        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -53,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(
                     new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW));
         }
+
 
         // If a notification message is tapped, any data accompanying the notification
         // message is available in the intent extras. In this sample the launcher
@@ -68,6 +77,24 @@ public class MainActivity extends AppCompatActivity {
         //         Object value = getIntent().getExtras().get(key);
         //     }
         // }
+
+        Log.i(TAG, "MainActivity.onCreate themeGroup setting default");
+        binding.themeGroup.check(R.id.themeSystem);
+
+        binding.themeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Log.i(TAG, "themeGroup.onCheckedChanged: " + checkedId);
+                if(applyThemeCheckChange) {
+                    if(checkedId == R.id.themeSystem)
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    else if(checkedId == R.id.themeDark)
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    else if(checkedId == R.id.themeLight)
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
 
         binding.logTokenButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+        applyThemeCheckChange = true;
+        Log.i(TAG, "MainActivity.onCreate end");
     }
-
 }
