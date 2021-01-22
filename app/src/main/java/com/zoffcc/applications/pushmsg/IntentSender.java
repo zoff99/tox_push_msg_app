@@ -25,7 +25,7 @@ public class IntentSender {
             if(extraName == "token") {
                 String msg = context.getString(R.string.msg_token_fmt, extraValue);
                 Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-                Log.i(TAG, msg);
+                // Log.i(TAG, msg);
             }
         } catch (Exception e) {
             e.printStackTrace();
