@@ -19,6 +19,7 @@ package com.zoffcc.applications.pushmsg;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,28 +27,25 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.zoffcc.applications.pushmsg.databinding.ActivityMainBinding;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create channel to show notifications.
             String channelId = getString(R.string.default_notification_channel_id);
             String channelName = getString(R.string.default_notification_channel_name);
@@ -65,57 +63,25 @@ public class MainActivity extends AppCompatActivity
         //
         // Handle possible data accompanying notification message.
         // [START handle_data_extras]
-        if (getIntent().getExtras() != null)
-        {
-            for (String key : getIntent().getExtras().keySet())
-            {
-                Object value = getIntent().getExtras().get(key);
-            }
-        }
+        // if (getIntent().getExtras() != null) {
+        //     for (String key : getIntent().getExtras().keySet()) {
+        //         Object value = getIntent().getExtras().get(key);
+        //     }
+        // }
 
-        binding.logTokenButton.setOnClickListener(new View.OnClickListener()
-        {
+        binding.logTokenButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 // Get token
-                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>()
-                {
+                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
-                    public void onComplete(@NonNull Task<String> task)
-                    {
-                        if (!task.isSuccessful())
-                        {
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
                             Log.w(TAG, "Fetching FCM registration token failed", task.getException());
                             return;
                         }
 
-                        // Get new FCM registration token
-                        String token = task.getResult();
-
-                        // TODO: send ID to trifa (trifa will forward it to ToxProxy)
-                        // 1. Trifa Aufwecken (analog zu nachricht empfang)
-                        // duplizieren und token gleichzeitig zum aufwecken übermitteln
-                        try
-                        {
-                            // wake up trifa here ------------------
-                            final Intent intent = new Intent();
-                            intent.setAction("com.zoffcc.applications.trifa.TOKEN_CHANGED");
-                            intent.putExtra("token", token);
-                            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            intent.setComponent(new ComponentName("com.zoffcc.applications.trifa",
-                                                                  "com.zoffcc.applications.trifa.MyTokenReceiver"));
-                            sendBroadcast(intent);
-                            // wake up trifa here ------------------
-                        }
-                        catch (Exception e)
-                        {
-                            e.printStackTrace();
-                        }
-
-                        // Log and toast
-                        String msg = getString(R.string.msg_token_fmt, token);
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        IntentSender.sendTokenIntent(task.getResult(), MainActivity.this);
                     }
                 });
             }
