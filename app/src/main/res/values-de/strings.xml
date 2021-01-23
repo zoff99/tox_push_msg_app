@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="log_token">Token zu TRIfA senden (und dann an ToxProxy weiterleiten)</string>
+</resources>
