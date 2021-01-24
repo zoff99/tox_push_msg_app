@@ -27,6 +27,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -36,15 +37,20 @@ import com.google.firebase.messaging.RemoteMessage;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
-    private SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+    private SharedPreferences settings = null;
+
+    public SharedPreferences getSettings() {
+        if(settings == null)
+            settings= PreferenceManager.getDefaultSharedPreferences(this);
+        return settings;
+    }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-
+        Log.d(TAG, "Data: " + remoteMessage.getData().toString());
         IntentSender.sendWakeupIntent(this);
-        if(settings.getBoolean("show_notifications", false)) try {
+        if(getSettings().getBoolean("show_notifications", false)) try {
             sendNotification(remoteMessage.getData().toString());
-            // Log.d(TAG, "Data: " + remoteMessage.getData().toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
