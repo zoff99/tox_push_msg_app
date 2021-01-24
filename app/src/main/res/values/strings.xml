@@ -15,4 +15,7 @@
     <string name="lookandfeel_header">Look and Feel</string>
     <string name="theme">Choose theme</string>
 
+    <string name="show_notifications">Show notifications</string>
+    <string name="show_notifications_summary">for debugging, independent of TRIfA</string>
+
 </resources>

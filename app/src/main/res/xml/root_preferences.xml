@@ -12,6 +12,6 @@
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="show_notifications"
-        android:summary="for debugging, independent of TRIfA"
-        android:title="Show notifications" />
+        android:summary="@string/show_notifications_summary"
+        android:title="@string/show_notifications" />
 </PreferenceScreen>
