@@ -22,9 +22,11 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 
 import androidx.core.app.NotificationCompat;
 
@@ -34,12 +36,13 @@ import com.google.firebase.messaging.RemoteMessage;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
+    private SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         IntentSender.sendWakeupIntent(this);
-        try {
+        if(settings.getBoolean("show_notifications", false)) try {
             sendNotification(remoteMessage.getData().toString());
             // Log.d(TAG, "Data: " + remoteMessage.getData().toString());
         } catch (Exception e) {
