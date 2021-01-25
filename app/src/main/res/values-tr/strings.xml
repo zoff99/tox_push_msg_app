@@ -12,4 +12,5 @@
     <string name="show_notifications">Bildirimleri göster</string>
     <string name="prefer_fcm_summary">Seçilmişse, anlık mesajlar için Google FCM\'yi kullan, değilse Gotify\'ı kullan</string>
     <string name="prefer_fcm">FCM\'yi tercih et</string>
+    <string name="app_name" translatable="false"></string>
 </resources>
