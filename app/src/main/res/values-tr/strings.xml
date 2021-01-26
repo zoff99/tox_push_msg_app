@@ -9,4 +9,6 @@
     <string name="log_token">Belirteci TRIfA\'ya gönder (ToxProxy\'ye iletmek için)</string>
     <string name="quickstart_message">Bu uygulamanın amacı, ToxProxy örneğiniz tarafından oluşturulan Firebase bildirimlerini almak ve bunları bu aygıtta çalışan TRIfA uygulamasına iletmektir.</string>
     <string name="app_name">FCM Tox</string>
+    <string name="show_notifications_summary">hata ayıklama için, TRIfA\'dan bağımsız</string>
+    <string name="show_notifications">Bildirimleri göster</string>
 </resources>
