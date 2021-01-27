@@ -41,7 +41,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public SharedPreferences getSettings() {
         if(settings == null)
-            settings= PreferenceManager.getDefaultSharedPreferences(this);
+        {
+            settings = PreferenceManager.getDefaultSharedPreferences(this);
+        }
         return settings;
     }
 
@@ -49,8 +51,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.d(TAG, "Data: " + remoteMessage.getData().toString());
         IntentSender.sendWakeupIntent(this);
-        if(getSettings().getBoolean("show_notifications", false)) try {
-            sendNotification(remoteMessage.getData().toString());
+        try {
+            if(getSettings().getBoolean("show_notifications", false))
+            {
+                sendNotification(remoteMessage.getData().toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
