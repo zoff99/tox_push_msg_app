@@ -12,4 +12,5 @@
     <string name="default_notification_channel_name">Wetter</string>
     <string name="prefer_fcm_summary">Wenn ausgewählt, wird Google FCM für Push-Nachrichten verwendet. Wird Gotify verwenden, wenn nicht ausgewählt</string>
     <string name="prefer_fcm">FCM bevorzugen</string>
+    <string name="app_name" translatable="false"></string>
 </resources>
