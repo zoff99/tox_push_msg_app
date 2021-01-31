@@ -5,10 +5,9 @@
     <string name="title_activity_settings">Etkinlik Ayarları</string>
     <string name="fcm_message">FCM Mesajı</string>
     <string name="msg_subscribe_failed">Hava durumu konusuna abone olunamadı</string>
-    <string name="default_notification_channel_name" translatable="true">Hava durumu</string>
+    <string name="default_notification_channel_name">Hava durumu</string>
     <string name="log_token">Belirteci TRIfA\'ya gönder (ToxProxy\'ye iletmek için)</string>
     <string name="quickstart_message">Bu uygulamanın amacı, ToxProxy örneğiniz tarafından oluşturulan Firebase bildirimlerini almak ve bunları bu aygıtta çalışan TRIfA uygulamasına iletmektir.</string>
-    <string name="app_name">FCM Tox</string>
     <string name="show_notifications_summary">hata ayıklama için, TRIfA\'dan bağımsız</string>
     <string name="show_notifications">Bildirimleri göster</string>
 </resources>

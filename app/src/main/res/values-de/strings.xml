@@ -9,6 +9,5 @@
     <string name="title_activity_settings">Einstellungen Aktivität</string>
     <string name="fcm_message">FCM-Nachricht</string>
     <string name="msg_subscribe_failed">Das Wetterthema konnte nicht abonniert werden</string>
-    <string name="default_notification_channel_name" translatable="true">Wetter</string>
-    <string name="app_name">FCM Tox</string>
+    <string name="default_notification_channel_name">Wetter</string>
 </resources>
