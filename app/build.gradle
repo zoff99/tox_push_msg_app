@@ -24,6 +24,32 @@ android {
 
     packagingOptions {
         exclude 'LICENSE.txt'
+        //
+        exclude 'kotlin/**'
+        exclude 'kotlin/*'
+        exclude 'kotlin'
+        exclude 'META-INF/kotlin*'
+        //
+        exclude 'META-INF/*version'
+        //
+        exclude 'firebase-common.properties'
+        exclude 'firebase-components.properties'
+        exclude 'firebase-datatransport.properties'
+        exclude 'firebase-encoders-json.properties'
+        exclude 'firebase-iid-interop.properties'
+        exclude 'firebase-iid.properties'
+        exclude 'firebase-installations-interop.properties'
+        exclude 'firebase-installations.properties'
+        exclude 'firebase-measurement-connector.properties'
+        exclude 'firebase-messaging.properties'
+        exclude 'play-services-basement.properties'
+        exclude 'play-services-base.properties'
+        exclude 'play-services-cloud-messaging.properties'
+        exclude 'play-services-stats.properties'
+        exclude 'play-services-tasks.properties'
+        exclude 'transport-api.properties'
+        exclude 'transport-backend-cct.properties'
+        exclude 'transport-runtime.properties'
     }
 
     lintOptions {
