@@ -19,7 +19,6 @@ package com.zoffcc.applications.pushmsg;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,18 +28,20 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import androidx.core.app.NotificationCompat;
-
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
+import androidx.core.app.NotificationCompat;
+
+public class MyFirebaseMessagingService extends FirebaseMessagingService
+{
 
     private static final String TAG = "MyFirebaseMsgService";
     private SharedPreferences settings = null;
 
-    public SharedPreferences getSettings() {
-        if(settings == null)
+    public SharedPreferences getSettings()
+    {
+        if (settings == null)
         {
             settings = PreferenceManager.getDefaultSharedPreferences(this);
         }
@@ -48,15 +49,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(RemoteMessage remoteMessage)
+    {
         Log.d(TAG, "Data: " + remoteMessage.getData().toString());
         IntentSender.sendWakeupIntent(this);
-        try {
-            if(getSettings().getBoolean("show_notifications", false))
+        try
+        {
+            if (getSettings().getBoolean("show_notifications", false))
             {
                 sendNotification(remoteMessage.getData().toString());
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
@@ -71,7 +76,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * C) User clears app data
      */
     @Override
-    public void onNewToken(String token) {
+    public void onNewToken(String token)
+    {
         IntentSender.sendTokenIntent(token, this);
     }
 
@@ -80,11 +86,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      *
      * @param messageBody FCM message body received.
      */
-    private void sendNotification(String messageBody) {
+    private void sendNotification(String messageBody)
+    {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
+                                                                PendingIntent.FLAG_ONE_SHOT);
 
         String channelId = getString(R.string.default_notification_channel_id);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -95,9 +102,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         // Since android Oreo notification channel is needed.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
             NotificationChannel channel = new NotificationChannel(channelId, "Channel human readable title",
-                    NotificationManager.IMPORTANCE_DEFAULT);
+                                                                  NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);
         }
 
