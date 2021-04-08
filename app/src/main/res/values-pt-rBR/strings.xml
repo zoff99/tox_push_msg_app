@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="show_notifications_summary">para depuração, independente do TRIfA</string>
+    <string name="show_notifications">Exibir notificações</string>
+    <string name="theme">Escolher tema</string>
+    <string name="lookandfeel_header">Aparência</string>
+    <string name="title_activity_settings">Configurações de Atividade</string>
+    <string name="fcm_message">Mensagem FCM</string>
+    <string name="msg_subscribe_failed">Falha ao inscrever-se na previsão do tempo</string>
+    <string name="default_notification_channel_name">Clima</string>
+    <string name="log_token">Enviar token para TRIfA (para encaminhamento para ToxProxy)</string>
+    <string name="quickstart_message">O propósito desta aplicação é receber notificações Firebase geradas pela sua instância ToxProxy e encaminhá-las para a aplicação TRIfA em execução neste dispositivo.</string>
+</resources>
