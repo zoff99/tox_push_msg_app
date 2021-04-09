@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="show_notifications_summary">为了调试目的，独立于 TRIfA</string>
+    <string name="show_notifications">显示通知</string>
+    <string name="theme">选择主题</string>
+    <string name="lookandfeel_header">外观和感觉</string>
+    <string name="title_activity_settings">设置活动</string>
+    <string name="fcm_message">FCM 消息</string>
+    <string name="msg_subscribe_failed">订阅天气主题失败</string>
+    <string name="default_notification_channel_name">天气</string>
+    <string name="log_token">发送令牌到 TRIfA （为了转发到ToxProxy）</string>
+    <string name="quickstart_message">这个应用程序的目的是接收由你的 ToxProxy 实例生成的 Firebase 通知，并将它们转发给运行在这个设备上的 TRIfA 应用程序。</string>
+</resources>
