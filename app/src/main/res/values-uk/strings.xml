@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="show_notifications_summary">для налагодження, незалежно від TRIfA</string>
+    <string name="show_notifications">Показувати сповіщення</string>
+    <string name="theme">Оберіть тему</string>
+    <string name="lookandfeel_header">Зовнішній вигляд</string>
+    <string name="title_activity_settings">Налаштування</string>
+    <string name="fcm_message">Повідомлення FCM</string>
+    <string name="msg_subscribe_failed">Не вдалося підписатися на тему погоди</string>
+    <string name="default_notification_channel_name">Погода</string>
+    <string name="log_token">Надіслати маркер TRIfA (для переадресації на ToxProxy)</string>
+    <string name="quickstart_message">Мета цього додатка - отримувати сповіщення Firebase, створені вашим екземпляром ToxProxy, та пересилати їх до програми TRIfA, запущеної на цьому пристрої.</string>
+</resources>
