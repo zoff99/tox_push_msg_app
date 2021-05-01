@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="quickstart_message">Ennek az alkalmazásnak az a célja, hogy fogadja a ToxProxy példány által generált Firebase-értesítéseket, és továbbítsa azokat az eszközön futó TRIfA alkalmazáshoz.</string>
+</resources>
