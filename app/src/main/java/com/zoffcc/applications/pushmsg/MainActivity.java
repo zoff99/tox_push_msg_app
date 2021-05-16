@@ -15,6 +15,104 @@
  * along with this program; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA.
+ * <p>
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * <p>
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * <p>
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * <p>
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * <p>
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * <p>
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * <p>
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 /**
@@ -38,6 +136,7 @@ package com.zoffcc.applications.pushmsg;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -52,7 +151,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.zoffcc.applications.pushmsg.databinding.ActivityMainBinding;
 
+import org.unifiedpush.android.connector.Registration;
+
+import java.util.List;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -108,48 +212,90 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
         binding.logTokenButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                // Get token
-                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>()
+                if (settings.getBoolean("prefer_fcm", true))
                 {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task)
+                    // Get token
+                    FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>()
                     {
-                        if (!task.isSuccessful())
+                        @Override
+                        public void onComplete(@NonNull Task<String> task)
                         {
-                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-                            return;
-                        }
+                            if (!task.isSuccessful())
+                            {
+                                Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                                return;
+                            }
 
-                        try
-                        {
-                            // wake up trifa here ------------------
-                            final Intent intent = new Intent();
-                            intent.setAction("com.zoffcc.applications.trifa.TOKEN_CHANGED");
-                            intent.putExtra("token", task.getResult());
-                            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            intent.setComponent(new ComponentName("com.zoffcc.applications.trifa",
-                                                                  "com.zoffcc.applications.trifa.MyTokenReceiver"));
-                            MainActivity.this.sendBroadcast(intent);
-                            // wake up trifa here ------------------
+                            try
+                            {
+                                // wake up trifa here ------------------
+                                final Intent intent = new Intent();
+                                intent.setAction("com.zoffcc.applications.trifa.TOKEN_CHANGED");
+                                intent.putExtra("token", task.getResult());
+                                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                intent.setComponent(new ComponentName("com.zoffcc.applications.trifa",
+                                                                      "com.zoffcc.applications.trifa.MyTokenReceiver"));
+                                MainActivity.this.sendBroadcast(intent);
+                                // wake up trifa here ------------------
 
-                            String msg = MainActivity.this.getString(R.string.msg_token_fmt, task.getResult());
-                            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                String msg = MainActivity.this.getString(R.string.msg_token_fmt, task.getResult());
+                                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
                         }
-                        catch (Exception e)
-                        {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                    });
+                }
             }
         });
 
+        registerAppWithDialog(this, "com.zoffcc.applications.pushmsg");
+
         Log.i(TAG, "MainActivity.onCreate end");
+    }
+
+    private static void registerAppWithDialog(Context context, String slug)
+    {
+
+        Registration registration = new Registration();
+        List<String> distributors = registration.getDistributors(context);
+        if (distributors.size() == 1 || !registration.getDistributor(context).isEmpty())
+        {
+            if (distributors.size() == 1)
+            {
+                registration.saveDistributor(context, distributors.get(0));
+            }
+            else
+            {
+                registration.saveDistributor(context, registration.getDistributor(context));
+            }
+            registration.registerApp(context, slug);
+            return;
+        }
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        if (distributors.size() == 0)
+        {
+            Toast.makeText(context, "No Gotity Distributors found", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            alert.setTitle("select_distributors");
+            String[] distributorsStr = distributors.toArray(new String[0]);
+            alert.setSingleChoiceItems(distributorsStr, -1, (dialog, item) -> {
+                String distributor = distributorsStr[item];
+                registration.saveDistributor(context, distributor);
+                registration.registerApp(context, slug);
+                dialog.dismiss();
+            });
+        }
+        alert.show();
     }
 }

@@ -14,4 +14,9 @@
         android:key="show_notifications"
         android:summary="@string/show_notifications_summary"
         android:title="@string/show_notifications" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="prefer_fcm"
+        android:summary="@string/prefer_fcm_summary"
+        android:title="@string/prefer_fcm" />
 </PreferenceScreen>

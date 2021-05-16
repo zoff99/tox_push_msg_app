@@ -15,6 +15,20 @@
  * along with this program; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA.
+ * <p>
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 /**
@@ -120,33 +134,36 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
     {
         try
         {
-            // wake up trifa here ------------------
-            final Intent intent = new Intent();
-            intent.setAction("com.zoffcc.applications.trifa.TOKEN_CHANGED");
-            intent.putExtra("token", token);
-            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-            intent.setComponent(new ComponentName("com.zoffcc.applications.trifa",
-                                                  "com.zoffcc.applications.trifa.MyTokenReceiver"));
-            sendBroadcast(intent);
-            // wake up trifa here ------------------
-
-            final String msg = getString(R.string.msg_token_fmt, token);
-
-            try
+            if (getSettings().getBoolean("prefer_fcm", true))
             {
-                Handler handler = new Handler(Looper.getMainLooper());
-                handler.post(new Runnable()
+                // wake up trifa here ------------------
+                final Intent intent = new Intent();
+                intent.setAction("com.zoffcc.applications.trifa.TOKEN_CHANGED");
+                intent.putExtra("token", token);
+                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                intent.setComponent(new ComponentName("com.zoffcc.applications.trifa",
+                                                      "com.zoffcc.applications.trifa.MyTokenReceiver"));
+                sendBroadcast(intent);
+                // wake up trifa here ------------------
+
+                final String msg = getString(R.string.msg_token_fmt, token);
+
+                try
                 {
-                    @Override
-                    public void run()
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable()
                     {
-                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-            catch (Exception e3)
-            {
-                e3.printStackTrace();
+                        @Override
+                        public void run()
+                        {
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                catch (Exception e3)
+                {
+                    e3.printStackTrace();
+                }
             }
         }
         catch (Exception e)

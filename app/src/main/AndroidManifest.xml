@@ -6,8 +6,8 @@
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher4"
-        android:roundIcon="@mipmap/ic_launcher4_round"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher4_round"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup,android:label">
@@ -44,6 +44,18 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <receiver
+            android:name=".UnifiedPushReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="org.unifiedpush.android.connector.MESSAGE" />
+                <action android:name="org.unifiedpush.android.connector.UNREGISTERED" />
+                <action android:name="org.unifiedpush.android.connector.NEW_ENDPOINT" />
+                <action android:name="org.unifiedpush.android.connector.REGISTRATION_FAILED" />
+                <action android:name="org.unifiedpush.android.connector.REGISTRATION_REFUSED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
