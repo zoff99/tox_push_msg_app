@@ -71,9 +71,8 @@ class UPHandler implements MessagingReceiverHandler
     {
         // Called when a new endpoint be used for sending push messages
         Log.i(TAG, "onNewEndpoint:instance=" + instance + " endpoint=" + endpoint);
-        String correct_endpoint = endpoint.replace("/UP?token=", "/message?token=");
+        String correct_endpoint = endpoint; //;endpoint.replace("/UP?token=", "/message?token=");
         Log.i(TAG, "onNewEndpoint:instance=" + instance + " correct_endpoint=" + correct_endpoint);
-
 
         try
         {
