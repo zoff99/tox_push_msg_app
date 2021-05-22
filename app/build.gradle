@@ -47,6 +47,7 @@ android {
         exclude 'kotlin/**'
         exclude 'kotlin/*'
         exclude 'kotlin'
+        exclude 'META-INF/*.kotlin_module'
         exclude 'META-INF/kotlin*'
         //
         exclude 'META-INF/*version'
