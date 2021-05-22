@@ -1,4 +1,4 @@
-# Tox Push Messages App
+# Tox Push Message App
 
 <img src="https://raw.githubusercontent.com/zoff99/ToxAndroidRefImpl/zoff99/dev003/android-refimpl-app/app/src/main/res/drawable/web_hi_res_512.png" width="200"><img src="https://raw.githubusercontent.com/zoff99/tox_push_msg_app/master/doc/76251555.png" width="40">&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/zoff99/tox_push_msg_app/master/doc/36410427.png" width="40">
 
