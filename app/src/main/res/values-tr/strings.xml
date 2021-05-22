@@ -10,4 +10,6 @@
     <string name="quickstart_message">Bu uygulamanın amacı, ToxProxy örneğiniz tarafından oluşturulan Firebase bildirimlerini almak ve bunları bu aygıtta çalışan TRIfA uygulamasına iletmektir.</string>
     <string name="show_notifications_summary">hata ayıklama için, TRIfA\'dan bağımsız</string>
     <string name="show_notifications">Bildirimleri göster</string>
+    <string name="prefer_fcm_summary">Seçilmişse, anlık mesajlar için Google FCM\'yi kullan, değilse Gotify\'ı kullan</string>
+    <string name="prefer_fcm">FCM\'yi tercih et</string>
 </resources>
