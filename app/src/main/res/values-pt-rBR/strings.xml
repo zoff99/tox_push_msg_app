@@ -10,4 +10,6 @@
     <string name="default_notification_channel_name">Clima</string>
     <string name="log_token">Enviar token para TRIfA (para encaminhamento para ToxProxy)</string>
     <string name="quickstart_message">O propósito desta aplicação é receber notificações Firebase geradas pela sua instância ToxProxy e encaminhá-las para a aplicação TRIfA em execução neste dispositivo.</string>
+    <string name="prefer_fcm_summary">usar o Google FCM para mensagens push, se selecionado. usar Gotify, se não selecionado</string>
+    <string name="prefer_fcm">Preferir FCM</string>
 </resources>
