@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="prefer_fcm_summary">jei pasirinkta, tiesioginiams pranešimams naudoti Google FCM. Jei nepasirinkta naudoti Gotify</string>
+    <string name="prefer_fcm">Pirmenybė FCM</string>
+    <string name="show_notifications_summary">klaidų pašalinimui, nepriklausomai nuo TRIfA</string>
+    <string name="show_notifications">Rodyti pranešimus</string>
+    <string name="theme">Pasirinkti temą</string>
+    <string name="lookandfeel_header">Išvaizda</string>
+    <string name="title_activity_settings">Nustatymų veikla</string>
+    <string name="fcm_message">FCM žinutė</string>
+    <string name="msg_subscribe_failed">Nepavyko užsiprenumeruoti orų temos</string>
+    <string name="default_notification_channel_name">Orai</string>
+    <string name="log_token">Siųsti tokeną į TRIfA (persiuntimui į ToxProxy)</string>
+    <string name="quickstart_message">Šios programos tikslas yra gauti Firebase pranešimus, kuriuos sugeneravo ToxProxy instancija, ir persiųsti juos šiame įrenginyje veikiančiai TRIfA programai.</string>
+</resources>
