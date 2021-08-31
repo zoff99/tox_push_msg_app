@@ -142,7 +142,10 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        registerAppWithDialog(this, "com.zoffcc.applications.pushmsg");
+        if (!settings.getBoolean("prefer_fcm", true))
+        {
+            registerAppWithDialog(this, "com.zoffcc.applications.pushmsg");
+        }
 
         Log.i(TAG, "MainActivity.onCreate end");
     }
