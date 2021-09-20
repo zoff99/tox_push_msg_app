@@ -10,4 +10,6 @@
     <string name="default_notification_channel_name">Погода</string>
     <string name="log_token">Отправить токен в TRIfA (для пересылки в ToxProxy)</string>
     <string name="quickstart_message">Это приложение предназначено для получения уведомлений Firebase, созданных вашим экземпляром ToxProxy, и пересылки их в приложение TRIfA, работающее на этом устройстве.</string>
+    <string name="prefer_fcm_summary">использовать Google FCM для push-сообщений, если он выбран. использовать Gotify, если он не выбран</string>
+    <string name="prefer_fcm">Предпочитать FCM</string>
 </resources>
