@@ -4,7 +4,7 @@
     <string name="show_notifications">Показывать уведомления</string>
     <string name="theme">Выберите тему</string>
     <string name="lookandfeel_header">Внешний вид</string>
-    <string name="title_activity_settings">НастройкиАктивность</string>
+    <string name="title_activity_settings">Настройки</string>
     <string name="fcm_message">FCM-сообщение</string>
     <string name="msg_subscribe_failed">Не удалось подписаться на тему погоды</string>
     <string name="default_notification_channel_name">Погода</string>
