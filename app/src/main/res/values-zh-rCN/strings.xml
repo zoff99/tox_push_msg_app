@@ -4,7 +4,7 @@
     <string name="show_notifications">显示通知</string>
     <string name="theme">选择主题</string>
     <string name="lookandfeel_header">外观和感觉</string>
-    <string name="title_activity_settings">设置活动</string>
+    <string name="title_activity_settings">SettingsActivity</string>
     <string name="fcm_message">FCM 消息</string>
     <string name="msg_subscribe_failed">订阅天气主题失败</string>
     <string name="default_notification_channel_name">天气</string>
