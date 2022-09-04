@@ -12,4 +12,7 @@
     <string name="quickstart_message">这个应用程序的目的是接收由你的 ToxProxy 实例生成的 Firebase 通知，并将它们转发给运行在这个设备上的 TRIfA 应用程序。</string>
     <string name="prefer_fcm_summary">如果选中，则使用Google FCM 推送消息。 如果未选中，则使用 Gotify</string>
     <string name="prefer_fcm">优先使用 FCM</string>
+    <string name="app_name" translatable="false"></string>
+    <string name="msg_token_fmt" translatable="false"></string>
+    <string name="default_notification_channel_id" translatable="false"></string>
 </resources>
