@@ -12,4 +12,7 @@
     <string name="show_notifications_summary">para depuración, independiente de TRIfA</string>
     <string name="prefer_fcm">Preferir el FCM</string>
     <string name="prefer_fcm_summary">utilizar Google FCM para los mensajes push si está seleccionado. utilizar Gotify si no está seleccionado</string>
+    <string name="msg_token_fmt" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="default_notification_channel_id" translatable="false"></string>
 </resources>
