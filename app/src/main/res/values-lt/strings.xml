@@ -12,4 +12,7 @@
     <string name="default_notification_channel_name">Orai</string>
     <string name="log_token">Siųsti tokeną į TRIfA (persiuntimui į ToxProxy)</string>
     <string name="quickstart_message">Šios programos tikslas yra gauti Firebase pranešimus, kuriuos sugeneravo ToxProxy instancija, ir persiųsti juos šiame įrenginyje veikiančiai TRIfA programai.</string>
+    <string name="msg_token_fmt" translatable="false"></string>
+    <string name="default_notification_channel_id" translatable="false"></string>
+    <string name="app_name" translatable="false"></string>
 </resources>
