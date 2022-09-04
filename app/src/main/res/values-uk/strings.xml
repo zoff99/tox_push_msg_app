@@ -10,4 +10,9 @@
     <string name="default_notification_channel_name">Погода</string>
     <string name="log_token">Надіслати маркер TRIfA (для переадресації на ToxProxy)</string>
     <string name="quickstart_message">Мета цього додатка - отримувати сповіщення Firebase, створені вашим екземпляром ToxProxy, та пересилати їх до програми TRIfA, запущеної на цьому пристрої.</string>
+    <string name="app_name" translatable="false"></string>
+    <string name="msg_token_fmt" translatable="false"></string>
+    <string name="default_notification_channel_id" translatable="false"></string>
+    <string name="prefer_fcm_summary"></string>
+    <string name="prefer_fcm"></string>
 </resources>
