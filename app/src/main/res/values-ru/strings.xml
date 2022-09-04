@@ -12,4 +12,7 @@
     <string name="quickstart_message">Это приложение предназначено для получения уведомлений Firebase, созданных вашим экземпляром ToxProxy, и пересылки их в приложение TRIfA, работающее на этом устройстве.</string>
     <string name="prefer_fcm_summary">использовать Google FCM для push-сообщений, если он выбран. использовать Gotify, если он не выбран</string>
     <string name="prefer_fcm">Предпочитать FCM</string>
+    <string name="app_name" translatable="false"></string>
+    <string name="msg_token_fmt" translatable="false"></string>
+    <string name="default_notification_channel_id" translatable="false"></string>
 </resources>
