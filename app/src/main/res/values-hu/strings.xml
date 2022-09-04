@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="quickstart_message">Ennek az alkalmazásnak az a célja, hogy fogadja a ToxProxy példány által generált Firebase-értesítéseket, és továbbítsa azokat az eszközön futó TRIfA alkalmazáshoz.</string>
+    <string name="fcm_message"></string>
+    <string name="prefer_fcm_summary"></string>
+    <string name="show_notifications"></string>
+    <string name="title_activity_settings"></string>
+    <string name="default_notification_channel_name"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="prefer_fcm"></string>
+    <string name="default_notification_channel_id" translatable="false"></string>
+    <string name="theme"></string>
+    <string name="msg_subscribe_failed"></string>
+    <string name="lookandfeel_header"></string>
+    <string name="show_notifications_summary"></string>
+    <string name="log_token"></string>
+    <string name="msg_token_fmt" translatable="false"></string>
 </resources>
