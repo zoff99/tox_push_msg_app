@@ -27,7 +27,7 @@ android {
     defaultConfig {
         applicationId "com.zoffcc.applications.pushmsg"
         minSdkVersion 16
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 10004
         versionName "1.0.4"
 
@@ -110,13 +110,14 @@ dependencies {
 
     implementation 'android.arch.work:work-runtime:1.0.1'
     implementation 'androidx.appcompat:appcompat:1.4.2'
+    //noinspection KtxExtensionAvailable
     implementation 'androidx.preference:preference:1.2.0'
 
     // Testing dependencies
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation 'androidx.test:runner:1.4.0'
-    androidTestImplementation 'androidx.test:rules:1.4.0'
-    androidTestImplementation 'androidx.annotation:annotation:1.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test:runner:1.5.1'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+    androidTestImplementation 'androidx.annotation:annotation:1.5.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
