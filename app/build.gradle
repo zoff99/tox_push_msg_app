@@ -27,7 +27,8 @@ android {
     defaultConfig {
         applicationId "com.zoffcc.applications.pushmsg"
         minSdkVersion 16
-        targetSdkVersion 31
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 30
         versionCode 10004
         versionName "1.0.4"
 
