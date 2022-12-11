@@ -30,10 +30,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.zoffcc.applications.pushmsg.databinding.ActivityMainBinding;
 
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";
     private ActivityMainBinding binding = null;
+    static TextView DistributorsTextViewFCM = null;
+    private static TextView DistributorsTextView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -77,6 +81,23 @@ public class MainActivity extends AppCompatActivity
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        DistributorsTextViewFCM = findViewById(R.id.DistributorsTextViewFcm);
+        DistributorsTextView = findViewById(R.id.DistributorsTextView);
+
+        DistributorsTextViewFCM.setText("none");
+        DistributorsTextView.setText("none");
+
+        try
+        {
+            // HINT: try to detect if FCM is available on this device
+            FirebaseApp.getInstance();
+            DistributorsTextViewFCM.setText("FCM");
+        }
+        catch (Exception e)
+        {
+            DistributorsTextViewFCM.setText("none");
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
@@ -172,6 +193,19 @@ public class MainActivity extends AppCompatActivity
         List<String> distributors = registration.getDistributors(context);
         if (distributors.size() == 1 || !registration.getDistributor(context).isEmpty())
         {
+            try
+            {
+                String available_dist = "";
+                for (int i = 0; i < distributors.size(); i++)
+                {
+                    available_dist = available_dist + distributors.get(i) + "\n";
+                }
+                DistributorsTextView.setText(available_dist);
+            }
+            catch (Exception e)
+            {
+            }
+
             if (distributors.size() == 1)
             {
                 registration.saveDistributor(context, distributors.get(0));
@@ -187,10 +221,23 @@ public class MainActivity extends AppCompatActivity
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         if (distributors.size() == 0)
         {
-            Toast.makeText(context, "No Gotity Distributors found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "No UnifiedPush Distributors found", Toast.LENGTH_SHORT).show();
         }
         else
         {
+            try
+            {
+                String available_dist = "";
+                for (int i = 0; i < distributors.size(); i++)
+                {
+                    available_dist = available_dist + distributors.get(i) + "\n";
+                }
+                DistributorsTextView.setText(available_dist);
+            }
+            catch (Exception e)
+            {
+            }
+
             alert.setTitle("select_distributors");
             String[] distributorsStr = distributors.toArray(new String[0]);
             alert.setSingleChoiceItems(distributorsStr, -1, (dialog, item) -> {
