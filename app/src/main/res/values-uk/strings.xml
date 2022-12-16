@@ -9,5 +9,5 @@
     <string name="msg_subscribe_failed">Не вдалося підписатися на тему погоди</string>
     <string name="default_notification_channel_name">Погода</string>
     <string name="log_token">Надіслати маркер TRIfA (для переадресації на ToxProxy)</string>
-    <string name="quickstart_message">Мета цього додатка - отримувати сповіщення Firebase, створені вашим екземпляром ToxProxy, та пересилати їх до програми TRIfA, запущеної на цьому пристрої.</string>
+    <string name="quickstart_message">Мета цього застосунка - отримувати сповіщення Firebase, створені вашим екземпляром ToxProxy, та пересилати їх до застосунка TRIfA, запущеної на цьому пристрої.</string>
 </resources>
