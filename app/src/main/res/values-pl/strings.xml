@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="default_notification_channel_name">Pogoda</string>
+    <string name="title_activity_settings">Ustawienia</string>
+    <string name="quickstart_message">Ten program ma za zadanie odbiór Powiadomień Firebase generowanych przez twój TorProxy i przekazywanie ich do aplikacji TRIfA działającej na tym urządzeniu.</string>
+    <string name="log_token">Wyślij Token do TRIfA (wymagane dla forwardowania do ToxProxy)</string>
+    <string name="msg_subscribe_failed">Nie udało się zasubskrybować wątku o Pogodzie</string>
+    <string name="fcm_message">Wiadomość FCM</string>
+    <string name="theme">Wybierz kompozycję</string>
+    <string name="show_notifications">Pokarz powiadomienia</string>
+    <string name="show_notifications_summary">dla debugowania, niezależne od TRIfA</string>
+    <string name="prefer_fcm">Preferuj FCM</string>
+    <string name="prefer_fcm_summary">gdy zaznaczone dla wiadomość push używaj Google FCM. gdy niezaznaczone używaj Gotify</string>
+    <string name="lookandfeel_header">Ustawienia Wyglądu</string>
 </resources>
