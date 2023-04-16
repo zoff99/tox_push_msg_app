@@ -9,3 +9,7 @@
 This is the Companion App for [TRIfA](https://github.com/zoff99/ToxAndroidRefImpl) to enable Push Messages via Google FCM or<br>
 [UnifiedPush](https://unifiedpush.org/users/distributors/gotify/) (with Gotify) for Push Messages which works completely without Google.
 
+<br>
+Any use of this project's code by GitHub Copilot, past or present, is done
+without our permission.  We do not consent to GitHub's use of this project's
+code in Copilot.
