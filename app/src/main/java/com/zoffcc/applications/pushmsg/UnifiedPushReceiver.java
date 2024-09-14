@@ -37,8 +37,11 @@ import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.unifiedpush.android.connector.MessagingReceiverHandler;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import static com.zoffcc.applications.pushmsg.UnifiedPushReceiver.TAG;
@@ -46,15 +49,6 @@ import static com.zoffcc.applications.pushmsg.UnifiedPushReceiver.TAG;
 public class UnifiedPushReceiver extends org.unifiedpush.android.connector.MessagingReceiver
 {
     static final String TAG = "UnifiedPushReceiver";
-
-    public UnifiedPushReceiver()
-    {
-        super(new UPHandler());
-    }
-}
-
-class UPHandler implements MessagingReceiverHandler
-{
     private SharedPreferences settings = null;
 
     public SharedPreferences getSettings(Context context)
@@ -122,13 +116,6 @@ class UPHandler implements MessagingReceiverHandler
     }
 
     @Override
-    public void onRegistrationRefused(@Nullable Context context, @NotNull String instance)
-    {
-        // called when the registration is refused, eg. an application with the same Id and another token is registered
-        Log.i(TAG, "onRegistrationRefused:instance=" + instance);
-    }
-
-    @Override
     public void onUnregistered(@Nullable Context context, @NotNull String instance)
     {
         // called when this application is unregistered from receiving push messages
@@ -136,12 +123,20 @@ class UPHandler implements MessagingReceiverHandler
     }
 
     @Override
-    public void onMessage(@Nullable Context context, @NotNull String message, @NotNull String instance)
+    public void onMessage(@NonNull Context context, @NonNull byte[] message_bytes, @NonNull String instance)
     {
         // Called when a new message is received. The String contains the full POST body of the push message
         new Thread(() -> {
             if (context != null)
             {
+                String message = "";
+                try
+                {
+                    message = URLDecoder.decode(message_bytes.toString(), "UTF-8");
+                }
+                catch (Exception e)
+                {
+                }
                 Log.i(TAG, "onMessage:instance=" + instance + " message=" + message);
                 try
                 {

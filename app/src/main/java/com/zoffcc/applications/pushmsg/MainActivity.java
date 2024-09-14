@@ -39,8 +39,9 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.zoffcc.applications.pushmsg.databinding.ActivityMainBinding;
 
-import org.unifiedpush.android.connector.Registration;
+import org.unifiedpush.android.connector.UnifiedPush;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -189,9 +190,8 @@ public class MainActivity extends AppCompatActivity
     private static void registerAppWithDialog(Context context, String slug)
     {
 
-        Registration registration = new Registration();
-        List<String> distributors = registration.getDistributors(context);
-        if (distributors.size() == 1 || !registration.getDistributor(context).isEmpty())
+        List<String> distributors = UnifiedPush.getDistributors(context, new ArrayList<>());
+        if (distributors.size() == 1 || !UnifiedPush.getDistributor(context).isEmpty())
         {
             try
             {
@@ -202,19 +202,19 @@ public class MainActivity extends AppCompatActivity
                 }
                 DistributorsTextView.setText(available_dist);
             }
-            catch (Exception e)
+            catch (Exception ignored)
             {
             }
 
             if (distributors.size() == 1)
             {
-                registration.saveDistributor(context, distributors.get(0));
+                UnifiedPush.saveDistributor(context, distributors.get(0));
             }
             else
             {
-                registration.saveDistributor(context, registration.getDistributor(context));
+                UnifiedPush.saveDistributor(context, UnifiedPush.getDistributor(context));
             }
-            registration.registerApp(context, slug);
+            UnifiedPush.registerApp(context, slug, new ArrayList<>(), "");
             return;
         }
 
@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity
                 }
                 DistributorsTextView.setText(available_dist);
             }
-            catch (Exception e)
+            catch (Exception ignored)
             {
             }
 
@@ -242,8 +242,8 @@ public class MainActivity extends AppCompatActivity
             String[] distributorsStr = distributors.toArray(new String[0]);
             alert.setSingleChoiceItems(distributorsStr, -1, (dialog, item) -> {
                 String distributor = distributorsStr[item];
-                registration.saveDistributor(context, distributor);
-                registration.registerApp(context, slug);
+                UnifiedPush.saveDistributor(context, distributor);
+                UnifiedPush.registerApp(context, slug, new ArrayList<>(), "");
                 dialog.dismiss();
             });
         }

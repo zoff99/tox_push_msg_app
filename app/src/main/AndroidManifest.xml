@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.zoffcc.applications.pushmsg">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher4"
@@ -15,7 +18,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +51,8 @@
 
         <receiver
             android:name=".UnifiedPushReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="org.unifiedpush.android.connector.MESSAGE" />
                 <action android:name="org.unifiedpush.android.connector.UNREGISTERED" />
