@@ -54,6 +54,8 @@ jobs:
           zipalign \
           apksigner
 
+    - name: add dummy json
+      run: cp -av ./app/google-services.json__dummy ./app/google-services.json
 
     - name: Build with Gradle
       run: ./gradlew assemble ; find . -name '*.apk'
