@@ -35,7 +35,7 @@ android {
         applicationId "com.zoffcc.applications.pushmsg"
         minSdkVersion 21
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 33
+        targetSdkVersion 30
         versionCode 10005
         versionName "1.0.5"
 
