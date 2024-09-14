@@ -1,0 +1,67 @@
+name: Android CI
+on:
+  push:
+    paths-ignore:
+     - 'README.md'
+  pull_request:
+    paths-ignore:
+     - 'README.md'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: dummy
+        default: dummy
+
+jobs:
+  update-nightly-tag:
+    name: Update nightly release tag
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    permissions:
+        contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Move nightly tag to head for nightly release
+        run: git tag -f nightly && git push origin nightly -f
+
+
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+
+    - name: show github event data
+      run: |
+        echo ${{github.event}} || echo "NO ERR"
+        echo ${{github.event_path}} || echo "NO ERR"
+        echo ${{github.event_name}} || echo "NO ERR"
+        echo ${{github.ref}} || echo "NO ERR"
+        echo ${{github.workspace}} || echo "NO ERR"
+        echo ${{github.workflow}} || echo "NO ERR"
+
+
+    - name: Install system packages
+      run: |
+          sudo apt-get update && \
+          sudo DEBIAN_FRONTEND=noninteractive \
+          apt-get install -y --no-install-recommends \
+          zipalign \
+          apksigner
+
+
+    - name: Build with Gradle
+      run: ./gradlew assemble ; find . -name '*.apk'
+
+
+  gradle-wrapper-validation:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: gradle/wrapper-validation-action@v3
+
