@@ -7,7 +7,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 This is the Companion App for [TRIfA](https://github.com/zoff99/ToxAndroidRefImpl) to enable Push Messages via Google FCM or<br>
-[UnifiedPush](https://unifiedpush.org/users/distributors/) (with ntfy.sh) for Push Messages which works completely without Google.
+[UnifiedPush](https://unifiedpush.org/users/distributors/ntfy/) (with ntfy.sh) for Push Messages which works completely without Google.
 
 <br>
 Any use of this project's code by GitHub Copilot, past or present, is done
