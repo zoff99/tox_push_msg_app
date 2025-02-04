@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="msg_subscribe_failed">Грешка при абониране за темата за времето</string>
+    <string name="fcm_message">Съобщенине на FCM</string>
+    <string name="theme">Избиране на тема</string>
+    <string name="prefer_fcm">Предпочитане на FCM</string>
+    <string name="prefer_fcm_summary">Ако е отметнато за известия се използва FCM на Google, в противен случай ntfy.sh</string>
+    <string name="default_notification_channel_name">Времето</string>
+    <string name="log_token">Изпращане на код за достъп към TRIfA (за препращане към ToxProxy)</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="show_notifications">Известия за отстраняване на дефекти</string>
+    <string name="show_notifications_summary">Показване на известия за отстраняване на дефекти, независимо от тези за TRIfA</string>
+    <string name="quickstart_message">Целта на това приложение е да получава известия и да ги препраща към приложението TRIfA, което работи на това устройство.</string>
+    <string name="lookandfeel_header">Външен вид и усещане</string>
+</resources>
