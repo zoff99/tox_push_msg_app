@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="quickstart_message">இந்த பயன்பாட்டின் நோக்கம் புச் அறிவிப்புகளைப் பெற்று அவற்றை இந்த சாதனத்தில் இயங்கும் ட்ரிஃபா பயன்பாட்டிற்கு அனுப்புவதாகும்.</string>
+    <string name="log_token">ட்ரிஃபாவுக்கு கிள்ளாக்கை அனுப்பவும் (டோக்ச்பிராக்சிக்கு அனுப்ப)</string>
+    <string name="default_notification_channel_name">வானிலை</string>
+    <string name="msg_subscribe_failed">வானிலை தலைப்புக்கு குழுசேரத் தவறிவிட்டது</string>
+    <string name="fcm_message">FCM செய்தி</string>
+    <string name="title_activity_settings">அமைப்புகள்</string>
+    <string name="lookandfeel_header">பாருங்கள் மற்றும் உணருங்கள்</string>
+    <string name="theme">கருப்பொருள் தேர்வு செய்யவும்</string>
+    <string name="show_notifications">அறிவிப்புகளைக் காட்டு</string>
+    <string name="show_notifications_summary">பிழைத்திருத்தத்திற்காக, ட்ரிஃபாவிலிருந்து சுயாதீனமாக</string>
+    <string name="prefer_fcm">FCM ஐ விரும்புங்கள்</string>
+    <string name="prefer_fcm_summary">தேர்ந்தெடுக்கப்பட்டால் புச் செய்திகளுக்கு Google FCM ஐப் பயன்படுத்தவும். தேர்ந்தெடுக்கப்படாவிட்டால் nfty.sh ஐப் பயன்படுத்தவும்</string>
+</resources>
