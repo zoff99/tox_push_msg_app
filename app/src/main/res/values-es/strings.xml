@@ -4,12 +4,12 @@
     <string name="default_notification_channel_name">Tiempo</string>
     <string name="fcm_message">Mensaje FCM</string>
     <string name="msg_subscribe_failed">No se pudo suscribir al tema meteorológico</string>
-    <string name="quickstart_message">El propósito de esta aplicación es recibir las notificaciones de Firebase generadas por tu instancia de ToxProxy y enviarlas a la aplicación TRIfA que se ejecuta en este dispositivo.</string>
+    <string name="quickstart_message">El propósito de esta aplicación es recibir las notificaciones Push y enviarlas a la aplicación TRIfA que se ejecuta en este dispositivo.</string>
     <string name="title_activity_settings">Ajustes de la Actividad</string>
     <string name="lookandfeel_header">Apariencia</string>
     <string name="theme">Elegir tema</string>
     <string name="show_notifications">Mostrar notificaciones</string>
     <string name="show_notifications_summary">para depuración, independiente de TRIfA</string>
     <string name="prefer_fcm">Preferir el FCM</string>
-    <string name="prefer_fcm_summary">utilizar Google FCM para los mensajes push si está seleccionado. utilizar Gotify si no está seleccionado</string>
+    <string name="prefer_fcm_summary">utilizar Google FCM para los mensajes push si está seleccionado. utilizar nfty.sh si no está seleccionado</string>
 </resources>
