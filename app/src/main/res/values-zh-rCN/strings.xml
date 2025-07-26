@@ -9,7 +9,7 @@
     <string name="msg_subscribe_failed">订阅天气主题失败</string>
     <string name="default_notification_channel_name">天气</string>
     <string name="log_token">发送令牌到 TRIfA （为了转发到ToxProxy）</string>
-    <string name="quickstart_message">这个应用程序的目的是接收由你的 ToxProxy 实例生成的 Firebase 通知，并将它们转发给运行在这个设备上的 TRIfA 应用程序。</string>
-    <string name="prefer_fcm_summary">如果选中，则使用Google FCM 推送消息。 如果未选中，则使用 Gotify</string>
+    <string name="quickstart_message">此应用程序的目的是接收推送通知并将其转发到此设备上运行的 TRIfA 应用程序。</string>
+    <string name="prefer_fcm_summary">如果选中，则使用Google FCM 推送消息。 如果未选中，则使用 nfty.sh</string>
     <string name="prefer_fcm">优先使用 FCM</string>
 </resources>
