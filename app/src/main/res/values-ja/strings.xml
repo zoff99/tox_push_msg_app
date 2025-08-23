@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="quickstart_message">このアプリの目的は、プッシュ通知を受信し、このデバイス上で実行中のTRIfAアプリに転送することです。</string>
+</resources>
