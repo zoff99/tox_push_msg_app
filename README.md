@@ -10,6 +10,12 @@ This is the Companion App for [TRIfA](https://github.com/zoff99/ToxAndroidRefImp
 [UnifiedPush](https://unifiedpush.org/users/distributors/ntfy/) (with ntfy.sh) for Push Messages which works completely without Google.
 
 
+Latest Automated Screenshots
+=
+
+<img src="https://github.com/zoff99/tox_push_msg_app/releases/download/nightly/android_screen01_21.png" width="150">&nbsp;<img src="https://github.com/zoff99/tox_push_msg_app/releases/download/nightly/android_screen01_29.png" width="150">&nbsp;<img src="https://github.com/zoff99/tox_push_msg_app/releases/download/nightly/android_screen01_33.png" width="150">&nbsp;<img src="https://github.com/zoff99/tox_push_msg_app/releases/download/nightly/android_screen01_35.png" width="150">
+
+
 🚀 Featured Applications
 =
 
