@@ -60,6 +60,11 @@ jobs:
               java -version || exit 0
               echo "===========2========="
 
+      - name: use dummy google json for FCM
+        run:  |
+              pwd
+              cp -av app/google-services.json__dummy app/google-services.json
+
       - name: android test
         timeout-minutes: 30
         continue-on-error: true
