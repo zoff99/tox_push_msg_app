@@ -35,7 +35,7 @@
             android:id="@+id/informationTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/quickstart_message"
             android:textSize="19sp" />
 
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -126,7 +126,7 @@
             android:id="@+id/DistributorsTextViewHeaderFcm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:text="available FCM Distributors:"
             android:textSize="20sp" />
 
@@ -141,8 +141,8 @@
             android:id="@+id/DistributorsTextViewHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             android:text="available UP Distributors:"
             android:textSize="20sp" />
 

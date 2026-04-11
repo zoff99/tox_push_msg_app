@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Tox Notify</string>
     <string name="quickstart_message">This App\'s purpose is to receive Push Notifications and forward them to the TRIfA App running on this device.</string>
-    <string name="log_token">Send Token to TRIfA (for forwarding to ToxProxy)</string>
+    <string name="log_token">Send Token to TRIfA</string>
 
     <string name="msg_token_fmt" translatable="false">FCM registration Token: %s</string>
 
