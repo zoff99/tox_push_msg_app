@@ -92,6 +92,7 @@ jobs:
             adb shell am set-standby-bucket io.heckel.ntfy active
             adb shell am start -n io.heckel.ntfy/io.heckel.ntfy.ui.MainActivity  &
             sleep 5
+            adb shell dumpsys activity services io.heckel.ntfy
             wget https://f-droid.org/repo/org.unifiedpush.distributor.sunup_20.apk -O sunup.apk
             adb install sunup.apk
             sleep 5
@@ -100,6 +101,7 @@ jobs:
             adb shell am set-standby-bucket org.unifiedpush.distributor.sunup active
             adb shell am start -n org.unifiedpush.distributor.sunup/org.unifiedpush.distributor.sunup.activities.MainActivity  &
             sleep 5
+            adb shell dumpsys activity services org.unifiedpush.distributor.sunup
             pwd
             ./gradlew assemble ; find . -name '*.apk'
             adb install ./app/build/outputs/apk/debug/app-debug.apk
