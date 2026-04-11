@@ -31,6 +31,7 @@ jobs:
           apt-get install -y --no-install-recommends \
           fonts-freefont-otf \
           adb \
+          wget \
           ghostscript \
           imagemagick \
           ca-certificates
@@ -80,6 +81,10 @@ jobs:
           disable-animations: true
           disable-spellchecker: true
           script: |
+            wget https://f-droid.org/repo/io.heckel.ntfy_60.apk -O ntfy.apk
+            adb install ntfy.apk
+            sleep 5
+            adb shell am start -n io.heckel.ntfy/io.heckel.ntfy.ui.MainActivity  &
             ./gradlew build ; ./gradlew installDebug
             adb shell am start -n com.zoffcc.applications.pushmsg/com.zoffcc.applications.pushmsg.MainActivity  &
             sleep 20
