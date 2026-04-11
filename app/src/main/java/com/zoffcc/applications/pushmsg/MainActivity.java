@@ -19,6 +19,7 @@
 
 package com.zoffcc.applications.pushmsg;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ComponentName;
@@ -28,6 +29,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MainActivity";
     private ActivityMainBinding binding = null;
     static TextView DistributorsTextViewFCM = null;
+    static TextView used_distributor = null;
     private static TextView DistributorsTextView = null;
 
     @Override
@@ -83,6 +87,8 @@ public class MainActivity extends AppCompatActivity
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        used_distributor = findViewById(R.id.used_distributor);
 
         DistributorsTextViewFCM = findViewById(R.id.DistributorsTextViewFcm);
         DistributorsTextView = findViewById(R.id.DistributorsTextView);
@@ -118,6 +124,18 @@ public class MainActivity extends AppCompatActivity
             {
                 Intent myIntent = new Intent(v.getContext(), SettingsActivity.class);
                 startActivity(myIntent);
+            }
+        });
+
+        binding.changeDistributorButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (!settings.getBoolean("prefer_fcm", true))
+                {
+                    changeUnifiedPushDistributor(v.getContext(), "com.zoffcc.applications.pushmsg", settings);
+                }
             }
         });
 
@@ -165,11 +183,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        if (!settings.getBoolean("prefer_fcm", true))
-        {
-            registerAppWithDialog(this, "com.zoffcc.applications.pushmsg");
-        }
-
         Log.i(TAG, "MainActivity.onCreate end");
     }
 
@@ -186,10 +199,67 @@ public class MainActivity extends AppCompatActivity
         {
             binding.logTokenButton.setVisibility(View.VISIBLE);
         }
+
+        set_used_distributor_text(this);
+
+        if (settings.getBoolean("prefer_fcm", true))
+        {
+            used_distributor.setText("trying to use Goolge FCM");
+            // HINT: if we switch to FCM, remove all unified push distributors
+            try
+            {
+                UnifiedPush.safeRemoveDistributor(this);
+            }
+            catch(Exception ignored)
+            {
+            }
+            try
+            {
+                UnifiedPush.forceRemoveDistributor(this);
+            }
+            catch(Exception ignored)
+            {
+            }
+        }
+        else
+        {
+            try
+            {
+                // HINT: if we switch to UnifiedPush, remove FCM token
+                FirebaseMessaging.getInstance().deleteToken();
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
+        if (!settings.getBoolean("prefer_fcm", true))
+        {
+            registerAppWithDialog(this, "com.zoffcc.applications.pushmsg", settings);
+        }
+    }
+
+    private static void set_used_distributor_text(Context c)
+    {
+        try
+        {
+            if (UnifiedPush.getSavedDistributor(c) == null)
+            {
+                used_distributor.setText("no Unified push distributor active");
+            }
+            else
+            {
+                used_distributor.setText("active: " + UnifiedPush.getSavedDistributor(c));
+            }
+        }
+        catch (Exception e)
+        {
+            used_distributor.setText("no Unified push distributor active");
+        }
     }
 
     /** @noinspection SameParameterValue*/
-    private static void registerAppWithDialog(Context context, String slug)
+    private static void registerAppWithDialog(Context context, String slug, SharedPreferences settings)
     {
         List<String> distributors = UnifiedPush.getDistributors(context, new ArrayList<>());
 
@@ -206,22 +276,74 @@ public class MainActivity extends AppCompatActivity
         {
         }
 
-        if (UnifiedPush.getSavedDistributor(context) == null)
+        if ((UnifiedPush.getSavedDistributor(context) == null) && (!settings.getBoolean("prefer_fcm", true)))
         {
             // UnifiedPush.saveDistributor(context, UnifiedPush.getDistributor(context));
             String[] distributorArray = distributors.toArray(new String[0]);
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Select a Distributor");
-            builder.setItems(distributorArray, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String selectedDistributor = distributorArray[which];
-                    UnifiedPush.saveDistributor(context, selectedDistributor);
-                    UnifiedPush.registerApp(context, slug, new ArrayList<>(), "");
-                }
+            builder.setItems(distributorArray, (dialog, which) -> {
+                String selectedDistributor = distributorArray[which];
+                UnifiedPush.saveDistributor(context, selectedDistributor);
+                UnifiedPush.registerApp(context, slug, new ArrayList<>(), "");
             });
             builder.setNegativeButton("Cancel", null);
             builder.show();
         }
     }
+
+    /** @noinspection SameParameterValue*/
+    private static void changeUnifiedPushDistributor(Context context, String slug, SharedPreferences settings)
+    {
+        List<String> distributors = UnifiedPush.getDistributors(context, new ArrayList<>());
+        try
+        {
+            String available_dist = "";
+            for (int i = 0; i < distributors.size(); i++)
+            {
+                available_dist = available_dist + distributors.get(i) + "\n";
+            }
+            DistributorsTextView.setText(available_dist);
+        }
+        catch (Exception ignored)
+        {
+        }
+
+        if (!settings.getBoolean("prefer_fcm", true))
+        {
+            // UnifiedPush.saveDistributor(context, UnifiedPush.getDistributor(context));
+            String[] distributorArray = distributors.toArray(new String[0]);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Change Distributor");
+            builder.setItems(distributorArray, (dialog, which) -> {
+                String selectedDistributor = distributorArray[which];
+                try
+                {
+                    UnifiedPush.safeRemoveDistributor(context);
+                }
+                catch(Exception ignored)
+                {
+                }
+                try
+                {
+                    UnifiedPush.forceRemoveDistributor(context);
+                }
+                catch(Exception ignored)
+                {
+                }
+                UnifiedPush.saveDistributor(context, selectedDistributor);
+                UnifiedPush.registerApp(context, slug, new ArrayList<>(), "");
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Code here will run on the UI thread
+                        set_used_distributor_text(context);
+                    }
+                });
+            });
+            builder.setNegativeButton("Cancel", null);
+            builder.show();
+        }
+    }
+
 }
