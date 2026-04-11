@@ -104,6 +104,7 @@ jobs:
             adb shell dumpsys activity services org.unifiedpush.distributor.sunup
             pwd
             ./gradlew assemble ; find . -name '*.apk'
+            sleep 10
             adb install ./app/build/outputs/apk/debug/app-debug.apk
             adb shell cmd appops set com.zoffcc.applications.pushmsg RUN_IN_BACKGROUND allow
             adb shell am start -n com.zoffcc.applications.pushmsg/com.zoffcc.applications.pushmsg.MainActivity  &
