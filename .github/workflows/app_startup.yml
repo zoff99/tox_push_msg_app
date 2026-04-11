@@ -87,11 +87,13 @@ jobs:
             wget https://f-droid.org/repo/io.heckel.ntfy_60.apk -O ntfy.apk
             adb install ntfy.apk
             sleep 5
+            adb shell cmd appops set io.heckel.ntfy RUN_IN_BACKGROUND allow
             adb shell am start -n io.heckel.ntfy/io.heckel.ntfy.ui.MainActivity  &
             sleep 5
             pwd
             ./gradlew assemble ; find . -name '*.apk'
             adb install ./app/build/outputs/apk/debug/app-debug.apk
+            adb shell cmd appops set com.zoffcc.applications.pushmsg RUN_IN_BACKGROUND allow
             adb shell am start -n com.zoffcc.applications.pushmsg/com.zoffcc.applications.pushmsg.MainActivity  &
             sleep 20
             adb exec-out screencap -p > ~/android_screen01_${{ matrix.api-level }}.png
