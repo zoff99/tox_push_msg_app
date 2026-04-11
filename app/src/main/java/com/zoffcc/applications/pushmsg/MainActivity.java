@@ -115,6 +115,14 @@ public class MainActivity extends AppCompatActivity
                     new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW));
         }
 
+        try
+        {
+            binding.appInfoTest.setText("Version: " + BuildConfig.VERSION_NAME + " Build: " + BuildConfig.GitHash);
+        }
+        catch(Exception ignored)
+        {
+        }
+
         binding.startSetting.setOnClickListener(new View.OnClickListener()
         {
             @Override
