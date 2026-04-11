@@ -23,6 +23,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -187,66 +188,40 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /** @noinspection SameParameterValue*/
     private static void registerAppWithDialog(Context context, String slug)
     {
-
         List<String> distributors = UnifiedPush.getDistributors(context, new ArrayList<>());
-        if (distributors.size() == 1 || !UnifiedPush.getDistributor(context).isEmpty())
-        {
-            try
-            {
-                String available_dist = "";
-                for (int i = 0; i < distributors.size(); i++)
-                {
-                    available_dist = available_dist + distributors.get(i) + "\n";
-                }
-                DistributorsTextView.setText(available_dist);
-            }
-            catch (Exception ignored)
-            {
-            }
 
-            if (distributors.size() == 1)
+        try
+        {
+            String available_dist = "";
+            for (int i = 0; i < distributors.size(); i++)
             {
-                UnifiedPush.saveDistributor(context, distributors.get(0));
+                available_dist = available_dist + distributors.get(i) + "\n";
             }
-            else
-            {
-                UnifiedPush.saveDistributor(context, UnifiedPush.getDistributor(context));
-            }
-            UnifiedPush.registerApp(context, slug, new ArrayList<>(), "");
-            return;
+            DistributorsTextView.setText(available_dist);
+        }
+        catch (Exception ignored)
+        {
         }
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        if (distributors.size() == 0)
+        if (UnifiedPush.getSavedDistributor(context) == null)
         {
-            Toast.makeText(context, "No UnifiedPush Distributors found", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            try
-            {
-                String available_dist = "";
-                for (int i = 0; i < distributors.size(); i++)
-                {
-                    available_dist = available_dist + distributors.get(i) + "\n";
+            // UnifiedPush.saveDistributor(context, UnifiedPush.getDistributor(context));
+            String[] distributorArray = distributors.toArray(new String[0]);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Select a Distributor");
+            builder.setItems(distributorArray, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String selectedDistributor = distributorArray[which];
+                    UnifiedPush.saveDistributor(context, selectedDistributor);
+                    UnifiedPush.registerApp(context, slug, new ArrayList<>(), "");
                 }
-                DistributorsTextView.setText(available_dist);
-            }
-            catch (Exception ignored)
-            {
-            }
-
-            alert.setTitle("select_distributors");
-            String[] distributorsStr = distributors.toArray(new String[0]);
-            alert.setSingleChoiceItems(distributorsStr, -1, (dialog, item) -> {
-                String distributor = distributorsStr[item];
-                UnifiedPush.saveDistributor(context, distributor);
-                UnifiedPush.registerApp(context, slug, new ArrayList<>(), "");
-                dialog.dismiss();
             });
+            builder.setNegativeButton("Cancel", null);
+            builder.show();
         }
-        alert.show();
     }
 }
