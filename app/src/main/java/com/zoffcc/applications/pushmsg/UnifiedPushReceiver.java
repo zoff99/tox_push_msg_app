@@ -70,6 +70,14 @@ public class UnifiedPushReceiver extends org.unifiedpush.android.connector.Messa
 
         try
         {
+            getSettings(context).edit().putString("UP_ENDPOINT", "" + correct_endpoint).commit();
+        }
+        catch(Exception e)
+        {
+        }
+
+        try
+        {
             if (!getSettings(context).getBoolean("prefer_fcm", true))
             {
                 // wake up trifa here ------------------

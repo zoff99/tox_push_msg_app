@@ -19,12 +19,10 @@
 
 package com.zoffcc.applications.pushmsg;
 
-import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -200,7 +198,7 @@ public class MainActivity extends AppCompatActivity
             binding.logTokenButton.setVisibility(View.VISIBLE);
         }
 
-        set_used_distributor_text(this);
+        set_used_distributor_text(this, settings);
 
         if (settings.getBoolean("prefer_fcm", true))
         {
@@ -216,6 +214,7 @@ public class MainActivity extends AppCompatActivity
             try
             {
                 UnifiedPush.forceRemoveDistributor(this);
+                settings.edit().putString("UP_ENDPOINT", "").commit();
             }
             catch(Exception ignored)
             {
@@ -239,7 +238,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private static void set_used_distributor_text(Context c)
+    private static void set_used_distributor_text(Context c, SharedPreferences settings)
     {
         try
         {
@@ -249,7 +248,12 @@ public class MainActivity extends AppCompatActivity
             }
             else
             {
-                used_distributor.setText("active: " + UnifiedPush.getSavedDistributor(c));
+                String up_endpoint = settings.getString("UP_ENDPOINT", "");
+                if (up_endpoint == null)
+                {
+                    up_endpoint = "";
+                }
+                used_distributor.setText("active: " + UnifiedPush.getSavedDistributor(c) + "\n" + "url: " + up_endpoint);
             }
         }
         catch (Exception e)
@@ -327,6 +331,7 @@ public class MainActivity extends AppCompatActivity
                 try
                 {
                     UnifiedPush.forceRemoveDistributor(context);
+                    settings.edit().putString("UP_ENDPOINT", "").commit();
                 }
                 catch(Exception ignored)
                 {
@@ -337,7 +342,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void run() {
                         // Code here will run on the UI thread
-                        set_used_distributor_text(context);
+                        set_used_distributor_text(context, settings);
                     }
                 });
             });
