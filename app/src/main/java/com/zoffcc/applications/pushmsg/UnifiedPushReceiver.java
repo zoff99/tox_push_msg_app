@@ -44,6 +44,7 @@ import java.net.URLDecoder;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
+import static com.zoffcc.applications.pushmsg.MainActivity.set_used_distributor_text;
 import static com.zoffcc.applications.pushmsg.UnifiedPushReceiver.TAG;
 
 public class UnifiedPushReceiver extends org.unifiedpush.android.connector.MessagingReceiver
@@ -71,6 +72,13 @@ public class UnifiedPushReceiver extends org.unifiedpush.android.connector.Messa
         try
         {
             getSettings(context).edit().putString("UP_ENDPOINT", "" + correct_endpoint).commit();
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    // Code here will run on the UI thread
+                    set_used_distributor_text(context, settings);
+                }
+            });
         }
         catch(Exception e)
         {

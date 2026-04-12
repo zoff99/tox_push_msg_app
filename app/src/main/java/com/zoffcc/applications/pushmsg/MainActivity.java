@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private static void set_used_distributor_text(Context c, SharedPreferences settings)
+    public static void set_used_distributor_text(Context c, SharedPreferences settings)
     {
         try
         {
