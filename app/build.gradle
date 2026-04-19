@@ -37,7 +37,7 @@ def getGitHash = { ->
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 34
     // buildToolsVersion "30.0.3"
     compileOptions.encoding = 'UTF-8'
 
@@ -149,7 +149,8 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.1.1')
     implementation 'com.google.firebase:firebase-messaging'
 
-    implementation 'com.github.UnifiedPush:android-connector:2.5.0'
+    implementation 'org.unifiedpush.android:connector:3.0.0'
+    implementation 'org.unifiedpush.android:connector-ui:1.1.0'
 
     //Firebase Cloud Messaging (Kotlin)
     // implementation 'com.google.firebase:firebase-messaging-ktx'

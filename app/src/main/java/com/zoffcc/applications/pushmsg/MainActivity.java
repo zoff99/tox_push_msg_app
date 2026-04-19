@@ -43,7 +43,6 @@ import com.zoffcc.applications.pushmsg.databinding.ActivityMainBinding;
 
 import org.unifiedpush.android.connector.UnifiedPush;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -214,7 +213,7 @@ public class MainActivity extends AppCompatActivity
             // HINT: if we switch to FCM, remove all unified push distributors
             try
             {
-                UnifiedPush.safeRemoveDistributor(this);
+                UnifiedPush.removeDistributor(this);
             }
             catch(Exception ignored)
             {
@@ -273,7 +272,7 @@ public class MainActivity extends AppCompatActivity
     /** @noinspection SameParameterValue*/
     private static void registerAppWithDialog(Context context, String slug, SharedPreferences settings)
     {
-        List<String> distributors = UnifiedPush.getDistributors(context, new ArrayList<>());
+        List<String> distributors = UnifiedPush.getDistributors(context);
 
         try
         {
@@ -297,7 +296,7 @@ public class MainActivity extends AppCompatActivity
             builder.setItems(distributorArray, (dialog, which) -> {
                 String selectedDistributor = distributorArray[which];
                 UnifiedPush.saveDistributor(context, selectedDistributor);
-                UnifiedPush.registerApp(context, slug, new ArrayList<>(), "");
+                UnifiedPush.registerApp(context, slug, "tox_push_msg_app", null);
             });
             builder.setNegativeButton("Cancel", null);
             builder.show();
@@ -307,7 +306,7 @@ public class MainActivity extends AppCompatActivity
     /** @noinspection SameParameterValue*/
     private static void changeUnifiedPushDistributor(Context context, String slug, SharedPreferences settings)
     {
-        List<String> distributors = UnifiedPush.getDistributors(context, new ArrayList<>());
+        List<String> distributors = UnifiedPush.getDistributors(context);
         try
         {
             String available_dist = "";
@@ -331,7 +330,7 @@ public class MainActivity extends AppCompatActivity
                 String selectedDistributor = distributorArray[which];
                 try
                 {
-                    UnifiedPush.safeRemoveDistributor(context);
+                    UnifiedPush.removeDistributor(context);
                 }
                 catch(Exception ignored)
                 {
@@ -345,7 +344,7 @@ public class MainActivity extends AppCompatActivity
                 {
                 }
                 UnifiedPush.saveDistributor(context, selectedDistributor);
-                UnifiedPush.registerApp(context, slug, new ArrayList<>(), "");
+                UnifiedPush.registerApp(context, slug, "tox_push_msg_app", null);
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {

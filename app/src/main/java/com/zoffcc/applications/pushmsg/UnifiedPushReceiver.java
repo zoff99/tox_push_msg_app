@@ -37,6 +37,9 @@ import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.unifiedpush.android.connector.FailedReason;
+import org.unifiedpush.android.connector.data.PushEndpoint;
+import org.unifiedpush.android.connector.data.PushMessage;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -62,11 +65,11 @@ public class UnifiedPushReceiver extends org.unifiedpush.android.connector.Messa
     }
 
     @Override
-    public void onNewEndpoint(@Nullable Context context, @NotNull String endpoint, @NotNull String instance)
+    public void onNewEndpoint(@Nullable Context context, @NotNull PushEndpoint pushEndpoint, @NotNull String instance)
     {
         // Called when a new endpoint be used for sending push messages
-        Log.i(TAG, "onNewEndpoint:instance=" + instance + " endpoint=" + endpoint);
-        String correct_endpoint = endpoint; //;endpoint.replace("/UP?token=", "/message?token=");
+        Log.i(TAG, "onNewEndpoint:instance=" + instance + " endpoint=" + pushEndpoint.getUrl());
+        String correct_endpoint = pushEndpoint.getUrl(); //;endpoint.replace("/UP?token=", "/message?token=");
         Log.i(TAG, "onNewEndpoint:instance=" + instance + " correct_endpoint=" + correct_endpoint);
 
         try
@@ -125,10 +128,10 @@ public class UnifiedPushReceiver extends org.unifiedpush.android.connector.Messa
     }
 
     @Override
-    public void onRegistrationFailed(@Nullable Context context, @NotNull String instance)
+    public void onRegistrationFailed(@Nullable Context context, @NonNull FailedReason failedReason, @NotNull String instance)
     {
         // called when the registration is not possible, eg. no network
-        Log.i(TAG, "onRegistrationFailed:instance=" + instance);
+        Log.i(TAG, "onRegistrationFailed:reason=" + failedReason.toString() + " instance=" + instance);
     }
 
     @Override
@@ -139,7 +142,7 @@ public class UnifiedPushReceiver extends org.unifiedpush.android.connector.Messa
     }
 
     @Override
-    public void onMessage(@NonNull Context context, @NonNull byte[] message_bytes, @NonNull String instance)
+    public void onMessage(@NonNull Context context, @NonNull PushMessage pushMessage, @NonNull String instance)
     {
         // Called when a new message is received. The String contains the full POST body of the push message
         new Thread(() -> {
@@ -148,7 +151,7 @@ public class UnifiedPushReceiver extends org.unifiedpush.android.connector.Messa
                 String message = "";
                 try
                 {
-                    message = URLDecoder.decode(message_bytes.toString(), "UTF-8");
+                    message = URLDecoder.decode(pushMessage.getContent().toString(), "UTF-8");
                 }
                 catch (Exception e)
                 {
