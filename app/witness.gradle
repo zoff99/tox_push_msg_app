@@ -163,7 +163,6 @@ dependencyVerification {
         'com.google.testing.platform:launcher:0.0.8-alpha08:launcher-0.0.8-alpha08.jar:b12982e7c34c56e480b18d49f1405a8965a9b79823c3805a488c5bc642e579d9',
         'com.squareup:javawriter:2.1.1:javawriter-2.1.1.jar:f699823d0081f69cbb676c1845ea222e0ada79bc88a53e5d22d8bd02d328f57e',
         'commons-io:commons-io:2.4:commons-io-2.4.jar:cc6a41dc3eaacc9e440a6bd0d2890b20d36b4ee408fe2d67122f328bb6e01581',
-        'intellij:deps:trove4j:trove4j-1.0.20200330.jar:c5fd725bffab51846bf3c77db1383c60aaaebfe1b7fe2f00d23fe1b7df0a439d',
         'io.grpc:grpc-api:1.45.1:grpc-api-1.45.1.jar:dc381fe018fb10bba8cc66f98db1050a70cee49a8270017c22ec6f77b10f13e5',
         'io.grpc:grpc-context:1.45.1:grpc-context-1.45.1.jar:262b8d0d23551ccb0c814f89794c73e9b5333ce71eab28eec6a9fc530613e15e',
         'io.grpc:grpc-core:1.45.1:grpc-core-1.45.1.jar:8dd8353e2a55678581ec92415c2b92cc8dafb437647dee57a49e36d1e8345b9e',
