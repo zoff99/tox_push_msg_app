@@ -149,7 +149,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.1.1')
     implementation 'com.google.firebase:firebase-messaging'
 
-    implementation 'org.unifiedpush.android:connector:3.0.0'
+    implementation 'org.unifiedpush.android:connector:3.3.2'
     implementation 'org.unifiedpush.android:connector-ui:1.1.0'
 
     //Firebase Cloud Messaging (Kotlin)
