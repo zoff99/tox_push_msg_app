@@ -118,7 +118,7 @@ static Map<DependencyKey, String> calculateHashes(Project project) {
                     }
                 }
             } catch (Exception e) {
-                println "gradle_witness_ng_error:EEE-0001:${e.message}"
+                System.err.println("gradle_witness_ng_error:EEE-0001:${e.message}")
             }
         }
     }
