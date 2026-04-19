@@ -51,8 +51,8 @@ android {
         minSdkVersion 21
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 30
-        versionCode 10006
-        versionName "1.0.6"
+        versionCode 10007
+        versionName "1.0.7"
 
         // Enabling multidex support
         multiDexEnabled true
