@@ -174,4 +174,4 @@ java {
 }
 
 apply plugin: 'com.google.gms.google-services'
-apply from: 'gradle_witness_ng.gradle'
+// apply from: 'gradle_witness_ng.gradle'
