@@ -194,7 +194,11 @@ project.task('calculateChecksums').doLast {
     println "    verify = ["
     dependencies.each {dep ->
         // HINT: exclude deps that change for different architcures
-        if ((!dep.key.all.startsWith("and:sdk:platforms:android.jar")) && ((!dep.key.all.startsWith("and:sdk:platforms:core-for-system-modules.jar")))) {
+        if (
+           (!dep.key.all.startsWith("and:sdk:platforms:android.jar"))
+           && (!dep.key.all.startsWith("and:sdk:platforms:core-for-system-modules.jar"))
+           && (!dep.key.all.startsWith("intellij:deps:trove4j:trove4j"))
+           ) {
             println "        '${dep.key.all}:${dep.value}',"
         }
     }
