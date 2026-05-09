@@ -6,7 +6,7 @@
     <string name="prefer_fcm">Предпочитане на FCM</string>
     <string name="prefer_fcm_summary">Ако е отметнато за известия се използва FCM на Google, в противен случай ntfy.sh</string>
     <string name="default_notification_channel_name">Времето</string>
-    <string name="log_token">Изпращане на код за достъп към TRIfA (за препращане към ToxProxy)</string>
+    <string name="log_token">Изпращане на код за достъп към TRIfA</string>
     <string name="title_activity_settings">Настройки</string>
     <string name="show_notifications">Известия за отстраняване на дефекти</string>
     <string name="show_notifications_summary">Показване на известия за отстраняване на дефекти, независимо от тези за TRIfA</string>
