@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="log_token">Enviar Token a TRIfA (para reenviar a ToxProxy)</string>
+    <string name="log_token">Enviar Token a TRIfA</string>
     <string name="default_notification_channel_name">Tiempo</string>
     <string name="fcm_message">Mensaje FCM</string>
     <string name="msg_subscribe_failed">No se pudo suscribir al tema meteorológico</string>
